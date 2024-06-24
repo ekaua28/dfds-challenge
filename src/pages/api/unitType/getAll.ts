@@ -1,4 +1,4 @@
-import { UnitType } from "@prisma/client";
+import type { UnitType } from "@prisma/client";
 import type { NextApiHandler, NextApiResponse } from "next";
 import { prisma } from "~/server/db";
 

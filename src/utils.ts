@@ -1,5 +1,9 @@
 import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
+import type {
+  QueryClient,
+  InvalidateQueryFilters,
+} from "@tanstack/react-query";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -9,8 +13,10 @@ export function cn(...inputs: ClassValue[]) {
  * @param path
  * @returns
  */
-export async function fetchData(path: string) {
-  const response = await fetch(`/api/${path}`);
+export async function fetchData(path: string, method: string = "GET") {
+  const response = await fetch(`/api/${path}`, {
+    method,
+  });
 
   if (!response.ok) {
     throw new Error("Network response was not ok");
@@ -18,3 +24,7 @@ export async function fetchData(path: string) {
 
   return response.json();
 }
+
+export const invalidateVoyages = async (queryClient: QueryClient) => {
+  await queryClient.invalidateQueries(["voyages"] as InvalidateQueryFilters);
+};
