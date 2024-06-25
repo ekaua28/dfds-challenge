@@ -1,7 +1,7 @@
-import { TableCell, TableRow } from "~/components/ui/table/Table";
+import { TableCell, TableRow } from "~/components/ui/table";
 import { format } from "date-fns";
-import { Button } from "~/components/ui/button/Button";
-import { TABLE_DATE_FORMAT } from "~/constants";
+import { Button } from "~/components/ui/button";
+import { TABLE_DATE_FORMAT } from "~/lib/constants";
 import type { ReturnType } from "~/pages/api/voyage/getAll";
 
 type voyage = ReturnType[number];

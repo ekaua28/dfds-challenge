@@ -1,4 +1,4 @@
-import { cn, fetchData, invalidateVoyages } from '../utils';
+import { cn, fetchData, invalidateVoyages } from '../lib/utils';
 import { QueryClient } from '@tanstack/react-query';
 
 global.fetch = jest.fn(() =>

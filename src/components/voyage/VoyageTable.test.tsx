@@ -4,7 +4,7 @@ import '@testing-library/jest-dom';
 import { VoyageTable } from './VoyageTable';
 import type { ReturnType } from '~/pages/api/voyage/getAll';
 import { format } from 'date-fns';
-import { TABLE_DATE_FORMAT } from '~/constants';
+import { TABLE_DATE_FORMAT } from '~/lib/constants';
 
 const voyages: ReturnType = [
     {

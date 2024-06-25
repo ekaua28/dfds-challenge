@@ -1,5 +1,5 @@
 import { useMutation } from "@tanstack/react-query";
-import { fetchData } from "~/utils";
+import { fetchData } from "~/lib/utils";
 
 type useDeleteVoyageProps = {
   onSuccess: () => Promise<void>;

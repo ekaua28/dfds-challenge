@@ -2,9 +2,9 @@ import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { VoyageRow } from './VoyageRow';
-import { Table, TableBody } from "~/components/ui/table/Table";
+import { Table, TableBody } from "~/components/ui/table";
 import type { ReturnType } from '~/pages/api/voyage/getAll';
-import { TABLE_DATE_FORMAT } from '~/constants';
+import { TABLE_DATE_FORMAT } from '~/lib/constants';
 import { format } from 'date-fns';
 
 const voyage: ReturnType[number] = {
