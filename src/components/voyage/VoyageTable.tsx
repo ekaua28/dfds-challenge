@@ -17,6 +17,7 @@ export const VoyageTable: React.FC<VoyageTableProps> = ({ voyages, onDelete }) =
                     <TableHead>Port of loading</TableHead>
                     <TableHead>Port of discharge</TableHead>
                     <TableHead>Vessel</TableHead>
+                    <TableHead>Unit Types</TableHead>
                     <TableHead>&nbsp;</TableHead>
                 </TableRow>
             </TableHeader>

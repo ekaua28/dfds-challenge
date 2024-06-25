@@ -1,13 +1,7 @@
-/* eslint-disable @typescript-eslint/unbound-method */
-import { cn, fetchData, invalidateVoyages } from "./utils";
+import { cn, processData, fetchData, invalidateVoyages } from "./utils";
 import { QueryClient } from "@tanstack/react-query";
 
-global.fetch = jest.fn(() =>
-  Promise.resolve({
-    ok: true,
-    json: () => Promise.resolve({ data: "mocked data" }),
-  }),
-) as jest.Mock;
+global.fetch = jest.fn();
 
 describe("Utils", () => {
   describe("cn", () => {
@@ -18,30 +12,60 @@ describe("Utils", () => {
     });
   });
 
-  describe("fetchData", () => {
-    it("should fetch data from the given path", async () => {
-      const data = await fetchData("test-path");
-      expect(data).toEqual({ data: "mocked data" });
-      expect(fetch).toHaveBeenCalledWith("/api/test-path", { method: "GET" });
+  describe("processData", () => {
+    beforeEach(() => {
+      (fetch as jest.Mock).mockClear();
+    });
+
+    it("should send a POST request and return response", async () => {
+      (fetch as jest.Mock).mockResolvedValueOnce({
+        ok: true,
+        json: () => ({ message: "success" }),
+      });
+
+      await processData("test-path", "POST", { "Content-Type": "application/json" }, JSON.stringify({ key: "value" }));
+
+      expect(fetch).toHaveBeenCalledWith("/api/test-path", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ key: "value" }),
+      });
     });
 
     it("should throw an error if the network response is not ok", async () => {
-      (fetch as jest.Mock).mockImplementationOnce(() =>
-        Promise.resolve({ ok: false }),
-      );
+      (fetch as jest.Mock).mockResolvedValueOnce({ ok: false });
 
-      await expect(fetchData("test-path")).rejects.toThrow(
-        "Network response was not ok",
-      );
+      await expect(processData("test-path")).rejects.toThrow("Network response was not ok");
+    });
+  });
+
+  describe("fetchData", () => {
+    beforeEach(() => {
+      (fetch as jest.Mock).mockClear();
+    });
+
+    it("should fetch data from the given path", async () => {
+      (fetch as jest.Mock).mockResolvedValueOnce({
+        ok: true,
+        json: () => ({ data: "mocked data" }),
+      });
+
+      const data = await fetchData("test-path");
+      expect(data).toEqual({ data: "mocked data" });
+      expect(fetch).toHaveBeenCalledWith("/api/test-path");
+    });
+
+    it("should throw an error if the network response is not ok", async () => {
+      (fetch as jest.Mock).mockResolvedValueOnce({ ok: false });
+
+      await expect(fetchData("test-path")).rejects.toThrow("Network response was not ok");
     });
   });
 
   describe("invalidateVoyages", () => {
     it("should invalidate voyage queries", async () => {
       const queryClient = new QueryClient();
-      jest
-        .spyOn(queryClient, "invalidateQueries")
-        .mockImplementation(() => Promise.resolve());
+      queryClient.invalidateQueries = jest.fn().mockResolvedValueOnce(undefined);
 
       await invalidateVoyages(queryClient);
       expect(queryClient.invalidateQueries).toHaveBeenCalledWith(["voyages"]);

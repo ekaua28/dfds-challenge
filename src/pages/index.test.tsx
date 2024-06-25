@@ -21,7 +21,7 @@ describe('Utils', () => {
         it('should fetch data from the given path', async () => {
             const data = await fetchData('test-path');
             expect(data).toEqual({ data: 'mocked data' });
-            expect(fetch).toHaveBeenCalledWith('/api/test-path', { method: 'GET' });
+            expect(fetch).toHaveBeenCalledWith('/api/test-path');
         });
 
         it('should throw an error if the network response is not ok', async () => {
