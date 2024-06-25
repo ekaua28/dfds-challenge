@@ -8,12 +8,8 @@ import type {
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
-/**
- * Relative path /api/${path}
- * @param path
- * @returns
- */
-export async function fetchData(path: string, method: string = "GET") {
+
+export async function fetchData(path: string, method = "GET") {
   const response = await fetch(`/api/${path}`, {
     method,
   });

@@ -21,6 +21,7 @@
     "incremental": true,
     "noUncheckedIndexedAccess": true,
     "baseUrl": ".",
+    "types": ["jest", "@testing-library/jest-dom"],
     "paths": {
       "~/*": [
         "./src/*"
@@ -39,7 +40,8 @@
     "**/*.tsx",
     "**/*.cjs",
     "**/*.mjs",
-    ".next/types/**/*.ts"
+    ".next/types/**/*.ts",
+    "jest.setup.ts"
   ],
   "exclude": [
     "node_modules"
