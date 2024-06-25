@@ -60,7 +60,7 @@ export async function fetchData(path: string) {
 
 /**
  * Invalidates the voyage queries in the query client.
- * 
+ *
  * @param {QueryClient} queryClient - The query client instance.
  * @returns {Promise<void>} A promise that resolves when the queries are invalidated.
  */
